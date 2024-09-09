@@ -1,6 +1,6 @@
 @font-face {
     font-family: "BITD-Progress-Clocks";
-    src: url("/fonts/progress-clocks.woff") format('woff');
+    src: url("fonts/progress-clocks.woff") format('woff');
 }
 
 .brand {
@@ -20,7 +20,9 @@
     margin: 5%;
 }
 
+/*
 body {
-    background-image: url("/img/grunge-background.jpg");
+    background-image: url("img/grunge-background.jpg");
     background-repeat: repeat-y;
 }
+*/
