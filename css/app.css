@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "BITD-Progress-Clocks";
+    src: url("/fonts/progress-clocks.woff") format('woff');
+}
+
+.brand {
+    font-family: "BITD-Progress-Clocks";
+    font-size: 28pt;
+    color: white;
+}
+
+.clock {
+    font-family: "BITD-Progress-Clocks";
+    font-size: 48pt;
+    color: white;
+}

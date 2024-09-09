@@ -1,0 +1,58 @@
+<html lang="it">
+
+<head>
+    <script src="/js/app.js" defer></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body>
+
+    <div class="container" x-data="clocks">
+
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="https://grumpybearstuff.com/giochi/blades-in-the-dark/">
+                    <span class="brand">A</span>
+                </a>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <button class="button is-primary" x-on:click="addClock(4)">
+                                <strong>4 Spicchi</strong>
+                            </button>
+                            <a class="button is-light" x-on:click="addClock(6)">
+                                6 Spicchi
+                            </a>
+                            <a class="button is-light" x-on:click="addClock(8)">
+                                8 Spicchi
+                            </a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="fixed-grid has-6-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
+            <div class="grid">
+            <template x-for="clock in clocks" :key="clock.key">
+                <div class="cell">
+                    <!--<button class="button clock" x-text="getClockText(clock.slices,clock.filled)" x-on:click="advanceClock(clock)"></button>-->
+                    <p class="icon-text">
+                        <span class="icon">
+                            <p class="clock">A</p>
+                        </span>
+                    </p>
+                    <input class="input" type="text" x-model="name" placeholder="Descrivi l'orologio"> 
+                </div>
+            </template>
+        </div>
+        </div>       
+    </div>
+
+</body>
+
+</html>
