@@ -29,28 +29,61 @@
                             </a>
                             <a class="button is-light" x-on:click="addClock(8)">
                                 8 Spicchi
-                            </a>                            
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
 
+        <hr />
+
         <div class="fixed-grid has-6-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
             <div class="grid">
-            <template x-for="clock in clocks" :key="clock.key">
-                <div class="cell">
-                    <!--<button class="button clock" x-text="getClockText(clock.slices,clock.filled)" x-on:click="advanceClock(clock)"></button>-->
-                    <p class="icon-text">
-                        <span class="icon">
-                            <p class="clock">A</p>
-                        </span>
-                    </p>
-                    <input class="input" type="text" x-model="name" placeholder="Descrivi l'orologio"> 
-                </div>
-            </template>
+                <template x-for="clock in clocks" :key="clock.key">
+                    <div class="cell">
+
+
+                        <div class="card">
+                            
+                            <header class="card-header">
+                                <!--<p class="card-header-title" x-text="clock.name"></p>-->
+                                <button class="delete is-large" x-on:click="removeClock(clock)"></button>
+                              </header>
+
+                            <div class="card-image">
+                                <center>
+                                    <button class="button is-large is-outlined is-rounded" x-on:click="advanceClock(clock)">
+                                        <span class="icon is-large">
+                                            <span class="clock" x-text="getClockText(clock.slices,clock.filled)"></span>
+                                        </span>
+                                    </button>
+                                </center>
+                            </div>
+
+                            <div class="card-content">
+
+                                <input class="input" type="text" x-model="clock.name" placeholder="Descrivi l'orologio">
+
+                            </div>
+
+
+                        </div>
+
+                          <!--
+                        <div class="block">
+                            <button class="button is-large is-outlined is-rounded" x-on:click="advanceClock(clock)">
+                                <span class="icon is-large">
+                                    <span class="clock" x-text="getClockText(clock.slices,clock.filled)"></span>
+                                </span>
+                            </button>
+                        </div>
+
+                        <input class="input" type="text" x-model="name" placeholder="Descrivi l'orologio">-->
+                    </div>
+                </template>
+            </div>
         </div>
-        </div>       
     </div>
 
 </body>

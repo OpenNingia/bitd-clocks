@@ -14,3 +14,13 @@
     font-size: 48pt;
     color: white;
 }
+
+.button-clock {
+    padding: 40px;
+    margin: 5%;
+}
+
+body {
+    background-image: url("/img/grunge-background.jpg");
+    background-repeat: repeat-y;
+}

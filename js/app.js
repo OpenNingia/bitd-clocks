@@ -14,18 +14,30 @@ document.addEventListener('alpine:init', () => {
         },
 
         init() {
-            //this.clocks = localStorage.getItem("bitd-clocks")
-            if (!this.clocks)
-                this.clocks = []
-
-            console.log("init!")
+            const dump = localStorage.getItem("bitd-clocks");
+            this.clocks_ = JSON.parse(dump);
+            console.log(`init: ${this.clocks_}`);
+            if (!this.clocks_)
+                this.clocks_ = []
         },
 
         addClock(n) {
             this.clocks_.push({ key: this.clocks_.length, slices: n, filled: 0, name: "" });
-            //localStorage.setItem("bitd-clocks", this.clocks);
+            this.updateStorage();
+        },
 
-            console.log('add clock ' + n)
+        removeClock(clock) {
+            const index = this.clocks_.indexOf(clock);
+            if (index > -1) {
+                this.clocks_.splice(index, 1);
+            }
+
+            this.updateStorage();
+        },
+
+        updateStorage() {
+            const dump = JSON.stringify(this.clocks_);
+            localStorage.setItem("bitd-clocks", dump);
         },
 
         getClockText(slices, filled) {
