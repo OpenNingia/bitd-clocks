@@ -1,0 +1,26 @@
+{
+    "id": "?version=1",
+    "short_name": "BITD-Clocks",
+    "name": "BITD: Progress Clocks",
+    "description": "Gestisci i tuoi orologi per Blades in the Dark",
+    "icons": [
+      {
+        "src": "/favicon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/favicon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": ".",
+    "display_override": ["fullscreen", "minimal-ui", "standalone"],
+    "display": "fullscreen",
+    "orientation": "landscape-primary",
+    "theme_color": "#04D1B2",
+    "background_color": "#13161A",
+    "categories": ["utilities", "entertainment", "games"]
+  }
+  
