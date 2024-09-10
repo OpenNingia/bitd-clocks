@@ -6,18 +6,15 @@
 .brand {
     font-family: "BITD-Progress-Clocks";
     font-size: 28pt;
-    color: white;
 }
 
 .clock {
     font-family: "BITD-Progress-Clocks";
-    font-size: 48pt;
-    color: white;
+    font-size: 4em;
 }
 
 .button-clock {
-    padding: 40px;
-    margin: 5%;
+    margin-top: 5%;
 }
 
 /*

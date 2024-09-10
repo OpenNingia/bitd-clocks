@@ -1,8 +1,9 @@
-<html lang="it">
+<html lang="it" data-theme="dark">
 
 <head>
-    <script src="js/app.js" defer></script>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <meta charset="utf-8">
+    <script src="js/app.js" defer=""></script>
+    <script src="https://unpkg.com/alpinejs" defer=""></script>
 
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
@@ -14,22 +15,22 @@
 
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://grumpybearstuff.com/giochi/blades-in-the-dark/">
-                    <span class="brand">A</span>
+                <a class="navbar-item" href="#">
+                    <span class="brand has-text-primary is-size-2-tablet is-size-1-mobile">D</span>
                 </a>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <button class="button is-primary" x-on:click="addClock(4)">
+                            <button class="button is-size-2-tablet is-size-1-mobile" x-on:click="addClock(4)">
                                 <strong>4 Spicchi</strong>
                             </button>
-                            <a class="button is-light" x-on:click="addClock(6)">
+                            <button class="button is-size-2-tablet is-size-1-mobile" x-on:click="addClock(6)">
                                 6 Spicchi
-                            </a>
-                            <a class="button is-light" x-on:click="addClock(8)">
+                            </button>
+                            <button class="button is-size-2-tablet is-size-1-mobile" x-on:click="addClock(8)">
                                 8 Spicchi
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -39,47 +40,28 @@
         <hr />
 
         <div class="fixed-grid has-6-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
-            <div class="grid">
+            <div class="grid p-4">
                 <template x-for="clock in clocks" :key="clock.key">
                     <div class="cell">
 
 
-                        <div class="card">
-                            
-                            <header class="card-header">
-                                <!--<p class="card-header-title" x-text="clock.name"></p>-->
-                                <button class="delete is-large" x-on:click="removeClock(clock)"></button>
-                              </header>
+                        <div class="box">
+                            <button class="delete is-medium mx-2 my-2" x-on:click="removeClock(clock)"></button>
 
-                            <div class="card-image">
-                                <center>
-                                    <button class="button is-large is-outlined is-rounded" x-on:click="advanceClock(clock)">
-                                        <span class="icon is-large">
-                                            <span class="clock" x-text="getClockText(clock.slices,clock.filled)"></span>
-                                        </span>
-                                    </button>
-                                </center>
-                            </div>
+                            <center>
+                                <button class="button is-large is-outlined is-rounded mt-auto"
+                                    x-on:click="advanceClock(clock)">
+                                    <span class="icon">
+                                        <span class="clock has-text-primary"
+                                            x-text="getClockText(clock.slices,clock.filled)"></span>
+                                    </span>
+                                </button>
+                            </center>
 
-                            <div class="card-content">
+                            <hr />
 
-                                <input class="input" type="text" x-model="clock.name" placeholder="Descrivi l'orologio">
-
-                            </div>
-
-
+                            <input class="input" type="text" x-model="clock.name" placeholder="Descrivi l'orologio">
                         </div>
-
-                          <!--
-                        <div class="block">
-                            <button class="button is-large is-outlined is-rounded" x-on:click="advanceClock(clock)">
-                                <span class="icon is-large">
-                                    <span class="clock" x-text="getClockText(clock.slices,clock.filled)"></span>
-                                </span>
-                            </button>
-                        </div>
-
-                        <input class="input" type="text" x-model="name" placeholder="Descrivi l'orologio">-->
                     </div>
                 </template>
             </div>

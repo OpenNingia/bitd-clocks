@@ -22,7 +22,9 @@ document.addEventListener('alpine:init', () => {
         },
 
         addClock(n) {
-            this.clocks_.push({ key: this.clocks_.length, slices: n, filled: 0, name: "" });
+            const key = self.crypto.randomUUID();
+            const clock = { key, slices: n, filled: 0, name: "" }
+            this.clocks_.push(clock);
             this.updateStorage();
         },
 
