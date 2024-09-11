@@ -18,7 +18,7 @@
     "start_url": ".",
     "display_override": ["fullscreen", "minimal-ui", "standalone"],
     "display": "fullscreen",
-    "orientation": "natural",
+    "orientation": "any",
     "theme_color": "#04D1B2",
     "background_color": "#13161A",
     "categories": ["utilities", "entertainment", "games"]
