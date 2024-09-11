@@ -1,9 +1,14 @@
+<!DOCTYPE html>
 <html lang="it" data-theme="dark">
 
 <head>
     <meta charset="utf-8">
     <script src="js/app.js" defer=""></script>
     <script src="https://unpkg.com/alpinejs" defer=""></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 
     <link rel="manifest" href="bitd-clocks.webmanifest" />
     <link rel="stylesheet" href="css/app.css">
@@ -40,14 +45,14 @@
 
         <hr />
 
-        <div class="fixed-grid has-6-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
+        <div class="fixed-grid has-4-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
             <div class="grid p-4">
                 <template x-for="clock in clocks" :key="clock.key">
                     <div class="cell">
 
 
                         <div class="box">
-                            <button class="delete is-medium mx-2 my-2" x-on:click="removeClock(clock)"></button>
+                            <button class="delete has-background-grey-dark is-medium mx-2 my-2" x-on:click="removeClock(clock)"></button>
 
                             <center>
                                 <button class="button is-large is-outlined is-rounded mt-auto"

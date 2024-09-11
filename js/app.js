@@ -16,7 +16,7 @@ document.addEventListener('alpine:init', () => {
         init() {
             const dump = localStorage.getItem("bitd-clocks");
             this.clocks_ = JSON.parse(dump);
-            console.log(`init: ${this.clocks_}`);
+
             if (!this.clocks_)
                 this.clocks_ = []
         },
