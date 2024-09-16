@@ -47,7 +47,62 @@ document.addEventListener('alpine:init', () => {
         },
 
         advanceClock(clock) {
-            clock.filled = (clock.filled + 1) % (clock.slices+1)
+            clock.filled = (clock.filled + 1) % (clock.slices + 1)
         },
     }))
 })
+
+const updateOrientation = function (o) {
+    document.getElementById('orientation').innerHTML = `Detected orientation is: <em>${o}</em>`
+}
+
+/*
+window.addEventListener('deviceorientation', (event) => {
+    console.log('deviceorientation')
+    console.log(event)
+    
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        console.log('deviceorientation: portrait');
+        updateOrientation('portrait');
+    }
+
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        console.log('deviceorientation: landscape');
+        updateOrientation('landscape');
+    }
+
+    //location.reload()
+});*/
+
+window.addEventListener('orientationchange', (event) => {
+    /*console.log('orientationchange')
+    console.log(event)
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        console.log('orientation: portrait');
+        updateOrientation('portrait');
+    }
+
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        console.log('orientation: landscape');
+        updateOrientation('landscape');
+    }*/
+
+    location.reload()
+});
+
+/*
+screen.orientation.addEventListener("change", (event) => {
+    console.log(`ScreenOrientation change`);
+    console.log(screen.orientation)
+
+    
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        console.log('ScreenOrientation: portrait');
+        updateOrientation('portrait');
+    }
+
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        console.log('ScreenOrientation: landscape');
+        updateOrientation('landscape');
+    }
+});*/
