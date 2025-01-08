@@ -10,20 +10,129 @@
 
 .clock {
     font-family: "BITD-Progress-Clocks";
-    font-size: 4em;
+    font-size: clamp(4em, 10vw, 8em); /* Responsive font size */
+    line-height: 1;
+    display: block;
+}
+
+/* Style the button containing the clock to accommodate the larger size */
+.button.is-large.is-outlined.is-rounded {
+    height: auto;
+    width: auto;
+    min-height: 200px;
+    min-width: 200px;
+    padding: 2rem;
+    margin: 1rem auto;
+}
+
+/* Make the box containing each clock more spacious */
+.box {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+}
+
+/* Adjust the input field below the clock */
+.input.is-medium {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Make the delete button position absolute to not affect layout */
+.delete.is-medium {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+
+/* Add relative positioning to the box to accommodate absolute positioned delete button */
+.cell .box {
+    position: relative;
 }
 
 .button-clock {
     margin-top: 5%;
 }
 
-/*
-body {
-    background-image: url("img/grunge-background.jpg");
-    background-repeat: repeat-y;
-}
-*/
-
 .credits {
     opacity: 50%;
+}
+
+.fixed-grid {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Add media queries for better control */
+@media screen and (max-width: 768px) {
+    .navbar-item .buttons {
+        flex-direction: row-reverse;
+        margin-bottom: 0;
+        padding: 0.5rem;        
+    }
+
+    .navbar-item .buttons .button {
+        margin-bottom: 0.5rem;
+    }    
+
+    #navbar-logo {
+        display: none;
+    }
+    
+    body {
+        padding-top: 340px !important; /* Increase padding for mobile to account for stacked buttons */
+    }
+
+    /* Ensure the grid starts with proper spacing */
+    .fixed-grid {
+        padding-top: 1rem;
+    }    
+}
+
+/* Enable the fixed header */
+html {
+    scroll-padding-top: 80px; /* This helps with anchor links accounting for fixed header */
+}
+
+body {
+    padding-top: 130px !important; /* Add padding to body to prevent content from hiding under navbar */
+}
+
+/* Style the fixed navbar */
+.navbar.is-fixed-top {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 30;
+}
+
+
+/* Add smooth transition for box-shadow on scroll */
+.navbar.is-fixed-top {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Optional: Add a class for when the navbar is scrolled */
+.navbar.is-fixed-top.is-scrolled {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Remove the hr that's right after the navbar since we don't need it with fixed positioning */
+.navbar + hr {
+    display: none;
+}
+
+/* Make sure the container has proper spacing */
+.container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Ensure the grid items have proper spacing */
+.grid {
+    padding-top: 1rem;
 }

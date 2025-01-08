@@ -14,11 +14,13 @@ document.addEventListener('alpine:init', () => {
         },
 
         init() {
-            const dump = localStorage.getItem("bitd-clocks");
-            this.clocks_ = JSON.parse(dump);
-
-            if (!this.clocks_)
-                this.clocks_ = []
+            try {
+                const dump = localStorage.getItem("bitd-clocks");
+                this.clocks_ = JSON.parse(dump) || [];
+            } catch (e) {
+                console.error('Failed to load clocks:', e);
+                this.clocks_ = [];
+            }
         },
 
         addClock(n) {
@@ -38,8 +40,10 @@ document.addEventListener('alpine:init', () => {
         },
 
         updateStorage() {
-            const dump = JSON.stringify(this.clocks_);
-            localStorage.setItem("bitd-clocks", dump);
+            debounce(function (clocks) {
+                const dump = JSON.stringify(clocks);
+                localStorage.setItem("bitd-clocks", dump);
+            }, 250)(this.clocks_);
         },
 
         getClockText(slices, filled) {
@@ -56,53 +60,60 @@ const updateOrientation = function (o) {
     document.getElementById('orientation').innerHTML = `Detected orientation is: <em>${o}</em>`
 }
 
-/*
-window.addEventListener('deviceorientation', (event) => {
-    console.log('deviceorientation')
-    console.log(event)
-    
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        console.log('deviceorientation: portrait');
-        updateOrientation('portrait');
-    }
-
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        console.log('deviceorientation: landscape');
-        updateOrientation('landscape');
-    }
-
-    //location.reload()
-});*/
-
 window.addEventListener('orientationchange', (event) => {
-    /*console.log('orientationchange')
-    console.log(event)
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        console.log('orientation: portrait');
-        updateOrientation('portrait');
+    // Instead of reload, re-render the grid
+    const grid = document.querySelector('.fixed-grid');
+    if (grid) {
+        grid.style.opacity = '0';
+        setTimeout(() => {
+            // Allow transition
+            grid.style.opacity = '1';
+        }, 100);
     }
-
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        console.log('orientation: landscape');
-        updateOrientation('landscape');
-    }*/
-
-    location.reload()
 });
 
-/*
-screen.orientation.addEventListener("change", (event) => {
-    console.log(`ScreenOrientation change`);
-    console.log(screen.orientation)
+// Add debouncing for storage updates
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-    
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        console.log('ScreenOrientation: portrait');
-        updateOrientation('portrait');
-    }
+// Add swipe gestures for mobile
+let touchStartX = 0;
+let touchEndX = 0;
 
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        console.log('ScreenOrientation: landscape');
-        updateOrientation('landscape');
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const SWIPE_THRESHOLD = 50;
+    if (touchEndX < touchStartX - SWIPE_THRESHOLD) {
+        // Swipe left - advance clock
     }
-});*/
+}
+
+// Add this to your app.js
+document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector('.navbar.is-fixed-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) {
+            navbar.classList.add('is-scrolled');
+        } else {
+            navbar.classList.remove('is-scrolled');
+        }
+    });
+});

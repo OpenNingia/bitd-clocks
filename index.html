@@ -10,18 +10,21 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+
     <link rel="manifest" href="bitd-clocks.webmanifest" />
-    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
 
     <div class="container" x-data="clocks">
 
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="#">
+                <a id="navbar-logo" class="navbar-item" href="#">
                     <span class="brand has-text-primary is-size-2-tablet is-size-1-mobile">D</span>
                 </a>
 
@@ -52,11 +55,14 @@
 
 
                         <div class="box">
-                            <button class="delete has-background-grey-dark is-medium mx-2 my-2" x-on:click="removeClock(clock)"></button>
+                            <button class="delete has-background-grey-dark is-medium mx-2 my-2"
+                                x-on:click="removeClock(clock)"></button>
 
                             <center>
                                 <button class="button is-large is-outlined is-rounded mt-auto"
-                                    x-on:click="advanceClock(clock)">
+                                    x-on:click="advanceClock(clock)"
+                                    :aria-label="'Advance clock: ' + (clock.name || 'Unnamed clock')" :aria-valuemin="0"
+                                    :aria-valuemax="clock.slices" :aria-valuenow="clock.filled">
                                     <span class="icon">
                                         <span class="clock has-text-primary"
                                             x-text="getClockText(clock.slices,clock.filled)"></span>
@@ -66,7 +72,8 @@
 
                             <hr />
 
-                            <input class="input is-medium" type="text" x-model="clock.name" placeholder="Descrivi l'orologio">
+                            <input class="input is-medium" type="text" x-model="clock.name"
+                                placeholder="Descrivi l'orologio">
                         </div>
                     </div>
                 </template>
@@ -74,10 +81,10 @@
         </div>
 
         <div class="credits is-size-7 has-text-right mx-4">
-            <p>PROGRESS CLOCK FONT CREATED BY: Justin Alexander</p>            
+            <p>PROGRESS CLOCK FONT CREATED BY: Justin Alexander</p>
             <p>The Alexandrian - <a href="http://www.thealexandrian.net">http://www.thealexandrian.net</a></p>
-        </p>
-    </div>
+            </p>
+        </div>
 
 </body>
 
