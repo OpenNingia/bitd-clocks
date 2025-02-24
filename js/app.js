@@ -9,41 +9,60 @@ document.addEventListener('alpine:init', () => {
 
         clocks_: [],
 
+        email: '',
+        password: '',
+        error: '',
+        session: null,
+
         get clocks() {
             return this.clocks_;
         },
 
-        init() {
-            try {
+        async init() {
+            /*try {
                 const dump = localStorage.getItem("bitd-clocks");
                 this.clocks_ = JSON.parse(dump) || [];
             } catch (e) {
                 console.error('Failed to load clocks:', e);
                 this.clocks_ = [];
-            }
+            }*/
+            this.session = new Session()
+            //this.clocks_ = session.getClocks()
+            /*await session.subscribeToClocks((data) => {
+                console.log('clocks update')
+                console.log(data)
+                this.clocks_ = data
+            })*/
+
+            this.clocks_ = await this.session.getClocks()
         },
 
-        addClock(n) {
-            const key = self.crypto.randomUUID();
-            const clock = { key, slices: n, filled: 0, name: "" }
-            this.clocks_.push(clock);
-            this.updateStorage();
+        async addClock(n) {
+            const clock = { slices: n, filled: 0, name: "" }
+
+            await this.session.addClock(clock)
+            this.clocks_ = await this.session.getClocks()
         },
 
-        removeClock(clock) {
+        async removeClock(clock) {
             const index = this.clocks_.indexOf(clock);
-            if (index > -1) {
-                this.clocks_.splice(index, 1);
-            }
+            if (index > -1) {           
+                const clock = this.clocks_[index]
 
-            this.updateStorage();
+                try {
+                await this.session.removeClock(clock.id)
+                this.clocks_ = await this.session.getClocks()
+                } catch(exc) {
+                    console.log(exc)
+                    this.error = "Impossibile cancellare l'orologio. Accesso Negato."
+                }
+            }
         },
 
-        updateStorage() {
-            debounce(function (clocks) {
-                const dump = JSON.stringify(clocks);
-                localStorage.setItem("bitd-clocks", dump);
-            }, 250)(this.clocks_);
+        updateClock(clock) {
+            debounce(async function (session, clock) {
+                await session.updateClock(clock)
+            }, 250)(this.session, clock);
         },
 
         getClockText(slices, filled) {
@@ -52,7 +71,19 @@ document.addEventListener('alpine:init', () => {
 
         advanceClock(clock) {
             clock.filled = (clock.filled + 1) % (clock.slices + 1)
+            this.updateClock(clock)
         },
+
+        async login(username, password) {
+            const session = new Session()
+            try {
+                await session.login(username, password)
+                window.location.href = 'index.html';
+            } catch (exc) {
+                this.error = 'Login failed. Please check your credentials.'
+                console.log(exc)
+            }
+        }
     }))
 })
 

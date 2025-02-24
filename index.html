@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <script src="js/app.js" defer=""></script>
+    <script src="js/onl.js" defer=""></script>
+    <script src="js/pocketbase.umd.js" defer=""></script>
     <script src="https://unpkg.com/alpinejs" defer=""></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -19,6 +21,15 @@
 </head>
 
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const session = new Session();
+            console.log("is auhenticated? " + session.isAuthenticated())
+            if (!session.isAuthenticated()) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 
     <div class="container" x-data="clocks">
 
@@ -46,11 +57,15 @@
             </div>
         </nav>
 
+        <div class="field" x-show="error">
+            <p class="has-text-danger" x-text="error"></p>
+        </div>
+
         <hr />
 
         <div class="fixed-grid has-4-cols-widescreen has-4-cols-desktop	has-2-cols-tablet has-1-cols-mobile">
             <div class="grid p-4">
-                <template x-for="clock in clocks" :key="clock.key">
+                <template x-for="clock in clocks" :key="clock.id">
                     <div class="cell">
 
 
